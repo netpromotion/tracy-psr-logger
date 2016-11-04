@@ -90,6 +90,31 @@ class TracyPsrLogger implements LoggerInterface
      */
     public function log($level, $message, array $context = array())
     {
+        if (!empty($context)) {
+            $message .= " " . self::stringifyContext($context);
+        }
         $this->logger->log($message, $level);
+    }
+
+    /**
+     * @param array $context
+     * @return string
+     */
+    private static function stringifyContext(array $context)
+    {
+        foreach ($context as $key => &$value) {
+            if ($value instanceof \Exception) {
+                $value = [
+                    "message" => $value->getMessage(),
+                    "code" => $value->getCode(),
+                    "trace" => $value->getTraceAsString()
+                ];
+            }
+            if (json_encode($value) === false) {
+                user_error("Unsupported value", E_USER_WARNING);
+                $value = null;
+            }
+        }
+        return json_encode($context);
     }
 }
