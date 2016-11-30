@@ -2,6 +2,13 @@
   "name": "netpromotion/tracy-psr-logger",
   "description": "Psr\\Log\\LoggerInterface wrapper for Tracy\\ILogger",
   "license": "MIT",
+  "keywords": [
+    "debug",
+    "log",
+    "logger",
+    "psr",
+    "Tracy"
+  ],
   "authors": [
     {
       "name": "Petr Knap",
